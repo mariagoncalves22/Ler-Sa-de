@@ -29,11 +29,11 @@
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: rgba(255, 255, 255, 0.905);  /* The default color of the main navmenu links */
-  --nav-hover-color: #b0c5ff; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-color: #004aad;  /* The default color of the main navmenu links */
+  --nav-hover-color: #003380; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-color: #ffffff; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #b0c5ff; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
@@ -59,6 +59,7 @@
 /* Hero customization variables */
 :root {
   --hero-min-height: 100vh; /* control hero size */
+  --header-height: 72px; /* approximate fixed header height, used to offset hero video */
 }
 
 /* Hide video wrapper */
@@ -71,10 +72,10 @@
 
 .hero-video {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - var(--header-height));
   object-fit: cover;
   position: absolute;   /* para ficar em segundo plano */
-  top: 0;
+  top: var(--header-height);
   left: 0;
   z-index: 1;           /* vídeo fica atrás do conteúdo */
 }
@@ -167,15 +168,13 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Global Header
 .header {
-  --background-color: #ffffff;
-  --heading-color: #ffffff;
-  --contrast-color: #ffffff;
+  --contrast-color: #d1ddff;
+  --background-color: #d1ddff;
+  --heading-color: #d5cdcd;
   color: var(--default-color);
   background-color: var(--background-color);
-  padding: 10px 0;
+  padding: 5px 0;
   transition: all 0.5s;
   z-index: 997;
 }
@@ -185,12 +184,12 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
-  margin-right: 8px;
+  max-height: 200px;
+  margin-right: 0px;
 }
 
-  /* Smaller logo icon: reduced for better balance */
-  .logo-img { width: 55px; max-height: 55px; height: auto; display:inline-block; margin-right:8px; }
+  /* Logo icon with adjusted proportions */
+  .logo-img { width: 45px; height: 45px; display:inline-block; margin-right:8px; object-fit: contain; object-position: center; }
 
 .header .logo h1 {
   font-size: 32px;
@@ -203,14 +202,6 @@ h6 {
   border-radius: 4px; /* cantos ligeiramente arredondados */
   line-height: 1; /* garante alinhamento vertical consistente */
 }
-
-.header .logo span {
-  color: var(--accent-color);
-  font-size: 32px;
-}
-.about-figure { display: block; max-width: 100%; }
-.about-figure img { object-fit: cover; width: 100%; height: auto; }
-.about-figure figcaption { font-size: 0.85rem; }
 
 .header .btn-getstarted,
 .header .btn-getstarted:focus {
@@ -246,7 +237,7 @@ h6 {
 }
 
 @media (max-width: 576px) {
-  .logo-img { width: 16px; max-height: 16px; margin-right:6px; }
+  .logo-img { width: 25px; max-height: 25px; margin-right:6px; }
   .header .logo h1 { font-size: 22px; }
 }
 
@@ -257,26 +248,29 @@ h6 {
 /* Index Page Header
 ------------------------------*/
 .index-page .header {
-  --background-color: rgba(0, 0, 0, 0);
+  --contrast-color: #d1ddff;
+  --background-color: #d1ddff;
 }
 
 /* Index Page Header on Scroll
 ------------------------------*/
 .index-page.scrolled .header {
-  --background-color: rgba(0, 0, 0, 0.8);
+  --contrast-color: #d1ddff;
+  --background-color: #d1ddff;
 }
 
 /* Light header for content pages: dark text on light background */
 .pricing-page .header, .demo-page .header, .starter-page .header {
   --nav-color: rgba(25,25,25,0.95);
   --heading-color: rgba(25,25,25,0.95);
-  --contrast-color: rgba(255,255,255,0.9);
-  --background-color: rgba(255,255,255,0.95);
+  --contrast-color: #d1ddff;
+  --background-color: #d1ddff;
 }
 
 /* When the page is scrolled, ensure a slightly denser background */
 .pricing-page.scrolled .header, .demo-page.scrolled .header, .starter-page.scrolled .header {
-  --background-color: rgba(255,255,255,1);
+  --contrast-color: #d1ddff;
+  --background-color: #d1ddff;
 }
 
 /* Ensure nav links in header use a readable color on light backgrounds */
@@ -284,12 +278,12 @@ h6 {
   color: rgba(44,44,44,0.95);
 }
 
-/* Ensure index header is readable over video */
+/* Ensure index header is readable on white background */
 .index-page .navmenu a,
 .index-page .navmenu a:focus,
 .index-page .logo h1 {
-  color: #fff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  color: #004aad !important;
+  text-shadow: none;
 }
 
 /*--------------------------------------------------------------
