@@ -543,12 +543,17 @@ h6 {
     position: fixed;
     overflow: hidden;
     inset: 0;
-    background: rgba(33, 37, 41, 0.8);
+    background: rgba(33, 37, 41, 0.85);
     transition: 0.3s;
   }
 
   .mobile-nav-active .navmenu>ul {
     display: block;
+    /* make the menu list itself dark so white text is visible */
+    background-color: rgba(33,37,41,0.95) !important;
+    inset: 60px 12px 20px 12px; /* slightly narrower on sides */
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
   /* Ensure mobile nav overlay text is always visible (white on dark overlay) */
@@ -556,6 +561,15 @@ h6 {
   .mobile-nav-active .navmenu a:focus {
     color: #fff !important;
   }
+
+  .mobile-nav-active .navmenu>ul li { border-bottom: 1px solid rgba(255,255,255,0.03); }
+}
+
+/* Ensure hero content (CTAs) sits above video and overlays on small screens */
+.hero .container { position: relative; z-index: 5; }
+.hero-cta { display: inline-block; }
+@media (max-width: 767.98px) {
+  .hero-cta { width: 100%; text-align: center; display: block; }
 }
 
 /*--------------------------------------------------------------
