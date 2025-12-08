@@ -39,28 +39,43 @@
     gtag('js', new Date());
     gtag('config', 'G-LRKT3R7VNR');
   </script>
-  <style>
-      @media (max-width: 991px) {
-        /* 1. Garante que as animações não escondem o texto no telemóvel */
-        [data-aos] {
-          opacity: 1 !important;
-          transform: none !important;
-          visibility: visible !important;
-          pointer-events: auto !important;
-        }
-        
-        /* 2. Garante um fundo escuro caso o vídeo não carregue */
-        #hero {
-          background-color: #000000 !important;
-          min-height: 100vh; /* Garante altura mínima */
-        }
-        
-        /* 3. Ajusta o tamanho do texto do título no telemóvel para não sair do ecrã */
-        #hero h2 {
-          font-size: 28px !important;
-        }
-      }
-    </style>  
+<style>
+  /* --- CORREÇÕES PARA TELEMÓVEL --- */
+  @media (max-width: 991px) {
+    
+    /* 1. Resolver o corte do conteúdo (botão e ícones desaparecidos) */
+    #hero {
+      height: auto !important;       /* Deixa a secção crescer conforme o conteúdo */
+      min-height: 100vh !important;  /* No mínimo ocupa o ecrã todo */
+      overflow: visible !important;  /* Impede que o conteúdo seja cortado */
+      padding-bottom: 80px;          /* Espaço extra no fundo para o botão respirar */
+    }
+
+    /* 2. Ajustar o vídeo para acompanhar o crescimento da página */
+    .hero-video-wrapper video {
+      min-height: 100vh;
+      object-fit: cover;
+    }
+
+    /* 3. Garantir visibilidade (como falámos antes) */
+    [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+    
+    /* 4. Fundo de segurança se o vídeo falhar */
+    .hero-video-wrapper {
+      background: #000;
+    }
+
+    /* 5. Ajuste dos ícones para não ocuparem tanto espaço */
+    .icon-box {
+      margin-bottom: 20px;
+      padding: 20px !important;
+    }
+  }
+</style> 
 </head>
 <body class="index-page">
 
@@ -483,7 +498,35 @@
     }
   })();
   </script>
-
+<script>
+  // Script de Correção do Menu Mobile
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const body = document.querySelector('body');
+    
+    if (mobileNavToggle) {
+      mobileNavToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Alterna a classe que mostra o menu
+        body.classList.toggle('mobile-nav-active');
+        // Alterna o ícone entre as riscas (list) e o X
+        this.classList.toggle('bi-list');
+        this.classList.toggle('bi-x');
+      });
+    }
+    
+    // Fecha o menu ao clicar num link
+    document.querySelectorAll('#navmenu a').forEach(nav => {
+      nav.addEventListener('click', () => {
+        if (body.classList.contains('mobile-nav-active')) {
+          body.classList.remove('mobile-nav-active');
+          mobileNavToggle.classList.toggle('bi-list');
+          mobileNavToggle.classList.toggle('bi-x');
+        }
+      });
+    });
+  });
+</script>
 </body>
 
 </html>
