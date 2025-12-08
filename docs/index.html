@@ -39,6 +39,28 @@
     gtag('js', new Date());
     gtag('config', 'G-LRKT3R7VNR');
   </script>
+  <style>
+      @media (max-width: 991px) {
+        /* 1. Garante que as animações não escondem o texto no telemóvel */
+        [data-aos] {
+          opacity: 1 !important;
+          transform: none !important;
+          visibility: visible !important;
+          pointer-events: auto !important;
+        }
+        
+        /* 2. Garante um fundo escuro caso o vídeo não carregue */
+        #hero {
+          background-color: #000000 !important;
+          min-height: 100vh; /* Garante altura mínima */
+        }
+        
+        /* 3. Ajusta o tamanho do texto do título no telemóvel para não sair do ecrã */
+        #hero h2 {
+          font-size: 28px !important;
+        }
+      }
+    </style>  
 </head>
 <body class="index-page">
 
@@ -244,8 +266,13 @@
       </div>
 
     </section><!-- /Services Section -->
-        <section id="pricing" class="pricing section">
-        <div class="row gy-4 mt-5 justify-content-center">
+<section id="pricing" class="pricing section">
+      
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Preços</h2>
+        <p>Planos flexíveis para a sua instituição de saúde</p>
+      </div>
+      <div class="container"> <div class="row gy-4 mt-5 justify-content-center">
           <div class="col-md-4">
             <div class="pricing-item">
               <h3>Starter</h3>
@@ -281,7 +308,6 @@
             </div>
           </div>
         </div>
-          <!-- Image removed for a simplified page look -->
       </div>
     </section>
 
