@@ -498,30 +498,114 @@
     }
   })();
   </script>
-<script>
-  // Script de Correção do Menu Mobile
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const body = document.querySelector('body');
-    
-    if (mobileNavToggle) {
-      mobileNavToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Alterna a classe que mostra o menu
-        body.classList.toggle('mobile-nav-active');
-        // Alterna o ícone entre as riscas (list) e o X
-        this.classList.toggle('bi-list');
-        this.classList.toggle('bi-x');
-      });
+<style>
+  @media (max-width: 991px) {
+    /* 1. FORÇAR O HERO A CRESCER */
+    #hero {
+      height: auto !important;       /* Deixa a altura livre */
+      min-height: 100vh !important;  /* No mínimo o ecrã todo */
+      overflow: visible !important;  /* PROIBIDO cortar conteúdo */
+      padding-bottom: 100px !important; /* Espaço extra no fundo para o botão */
+      background: #000 !important;   /* Fundo preto caso o vídeo falhe */
+    }
+
+    /* 2. CONTEÚDO VISÍVEL */
+    .hero-video-wrapper {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0; /* Vídeo fica no fundo */
+      overflow: hidden;
     }
     
-    // Fecha o menu ao clicar num link
-    document.querySelectorAll('#navmenu a').forEach(nav => {
-      nav.addEventListener('click', () => {
-        if (body.classList.contains('mobile-nav-active')) {
-          body.classList.remove('mobile-nav-active');
-          mobileNavToggle.classList.toggle('bi-list');
-          mobileNavToggle.classList.toggle('bi-x');
+    .hero .container {
+      position: relative;
+      z-index: 2; /* Texto fica à frente do vídeo */
+      padding-top: 80px; /* Baixa o texto para não bater no topo */
+    }
+
+    /* 3. BOTÃO DO MENU (HAMBÚRGUER) */
+    .mobile-nav-toggle {
+      display: block !important;
+      position: fixed !important;
+      right: 15px;
+      top: 15px;
+      z-index: 99999 !important; /* Garante que está à frente de TUDO */
+      color: #fff !important;    /* Força cor branca */
+      background: rgba(0,0,0,0.5); /* Fundo semi-transparente para se ver melhor */
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* 4. O MENU EM SI (QUANDO ABERTO) */
+    body.mobile-nav-active #navmenu {
+      display: block !important;
+      position: fixed;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: rgba(0, 0, 0, 0.95) !important; /* Fundo preto quase total */
+      z-index: 99998;
+      padding: 60px 20px;
+      overflow-y: auto;
+    }
+    
+    /* Esconder o menu quando não está ativo */
+    body:not(.mobile-nav-active) #navmenu ul {
+      display: none;
+    }
+    
+    /* Mostrar a lista quando ativo */
+    body.mobile-nav-active #navmenu ul {
+      display: block;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+    
+    body.mobile-nav-active #navmenu a {
+      color: #fff !important;
+      font-size: 20px;
+      display: block;
+      padding: 15px;
+    }
+  }
+</style>
+
+<script>
+  // Script de Força Bruta para o Menu
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.mobile-nav-toggle');
+    const body = document.querySelector('body');
+    const navMenu = document.querySelector('#navmenu');
+
+    if (toggleBtn) {
+      // Remove eventos antigos para não haver duplicados
+      const newBtn = toggleBtn.cloneNode(true);
+      toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
+
+      newBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Menu clicado!"); // Para debug
+        
+        // Alterna a classe no body
+        body.classList.toggle('mobile-nav-active');
+        
+        // Alterna o ícone
+        newBtn.classList.toggle('bi-list');
+        newBtn.classList.toggle('bi-x');
+      });
+    }
+
+    // Fechar menu ao clicar num link
+    const navLinks = document.querySelectorAll('#navmenu a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        body.classList.remove('mobile-nav-active');
+        const btn = document.querySelector('.mobile-nav-toggle');
+        if(btn) {
+            btn.classList.add('bi-list');
+            btn.classList.remove('bi-x');
         }
       });
     });
